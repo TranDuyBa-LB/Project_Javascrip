@@ -1,0 +1,62 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+.may-tinh {
+    width: 280px;
+    height: 370px;
+    border: 1px solid rgba(255, 255, 255);
+    border-radius: 10px;
+    margin: -400px auto;
+    box-shadow: 0px 0px 40px rgb(156, 156, 156);
+    background: linear-gradient(to right bottom, rgb(255, 129, 129), #0396FF);
+    overflow: hidden;
+}
+.may-tinh .output {
+    width: 0px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 20px auto;
+    display: block;
+    padding-left: 10px;
+    outline: 0;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.178);
+    color: white;
+}
+.may-tinh .view-button {
+    width: 95%;
+    height: 80%;
+    margin: 300px auto;
+    text-align: center;
+}
+.may-tinh .view-button .number,.action,.ket-qua {
+    width: 50px;
+    height: 0px;
+    margin-left: 2.5px;
+    margin-top: 5px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.295);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    outline: 0;
+    transition: 0.5s;
+}
+.may-tinh .view-button .ket-qua {
+    width: 100px;
+}
+.may-tinh .view-button .number:hover {
+    background-color: rgba(255, 92, 92, 0);
+    transition: 0.5s;
+}
+.may-tinh .view-button .action:hover {
+    background-color: rgba(255, 92, 92, 0);
+    transition: 0.5s;
+}
+.may-tinh .view-button .ket-qua:hover {
+    background-color: rgba(255, 92, 92, 0);
+    transition: 0.5s;
+}
