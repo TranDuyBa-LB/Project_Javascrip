@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Máy tính</title>
+        <meta charset="UTF-8" />
+        <style>
+            * {
+                padding: 0px;
+                margin: 0px;
+            }
+            .may-tinh {
+                width: 250px;
+                height: 370px;
+                border: 1px solid rgba(255, 255, 255);
+                border-radius: 10px;
+                margin: -400px auto;
+                box-shadow: 0px 0px 40px rgb(156, 156, 156);
+                background: linear-gradient(to right bottom, rgb(255, 129, 129), #0396FF);
+                overflow: hidden;
+            }
+            .may-tinh .output {
+                width: 0px;
+                height: 40px;
+                border: 1px solid white;
+                border-radius: 10px;
+                margin: 20px auto;
+                display: block;
+                padding-left: 10px;
+                outline: 0;
+                font-size: 20px;
+                background-color: rgba(255, 255, 255, 0.178);
+                color: white;
+            }
+            .may-tinh .view-button {
+                width: 95%;
+                height: 80%;
+                margin: 300px auto;
+                text-align: center;
+            }
+            .may-tinh .view-button .number,.action,.ket-qua {
+                width: 50px;
+                height: 0px;
+                margin-left: 2.5px;
+                margin-top: 5px;
+                border: 1px solid white;
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.295);
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                outline: 0;
+                transition: 0.5s;
+            }
+            .may-tinh .view-button .ket-qua {
+                width: 100px;
+            }
+            .may-tinh .view-button .number:hover {
+                background-color: rgba(255, 92, 92, 0);
+                transition: 0.5s;
+            }
+            .may-tinh .view-button .action:hover {
+                background-color: rgba(255, 92, 92, 0);
+                transition: 0.5s;
+            }
+            .may-tinh .view-button .ket-qua:hover {
+                background-color: rgba(255, 92, 92, 0);
+                transition: 0.5s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="may-tinh">
+            <input class="output" type="text" value="0.000000" readonly >
+            <div class="view-button">
+                <input class="number" type="button" value="0" >
+                <input class="number" type="button" value="1" >
+                <input class="number" type="button" value="2" >
+                <input class="number" type="button" value="3" >
+                <input class="number" type="button" value="4" >
+                <input class="number" type="button" value="5" >
+                <input class="number" type="button" value="6" >
+                <input class="number" type="button" value="7" >
+                <input class="number" type="button" value="8" >
+                <input class="number" type="button" value="9" >
+                <input class="action" type="button" value="+" >
+                <input class="action" type="button" value="-" >
+                <input class="action" type="button" value="*" >
+                <input class="action" type="button" value="/" >
+                <input class="action" type="button" value="Xóa" >
+                <input class="ket-qua" type="button" onclick="ketQua()" value="=" >
+            </div>
+        </div>
+    </body>
+    <script>
+        //-----------------Tính toán-----------------------//
+        var soTruoc; // Số trước
+        var soSau; // Số sau
+        var phepT; // Phép tính
+        var display = ""; // Nội dung hiển thị
+        var output = document.getElementsByClassName('output')[0]; // Ô hiển thị số nhập và kết quả
+        var buttonNumber = document.getElementsByClassName('number'); // Button số
+        var buttonAction = document.getElementsByClassName('action'); // Button chứa phép toán và xóa
+
+        //----------Tính toán kết quả--------------//
+        //---Xét xem phép tính trước đó là gì để thực hiện phép tính---//
+        function tinhToan() {
+            switch(phepT){
+                case '+':
+                    soTruoc = soTruoc + soSau;
+                break;
+                case '-':
+                    soTruoc = soTruoc - soSau;
+                break;
+                case '*':
+                    soTruoc = soTruoc * soSau;
+                break;
+                case '/':
+                    soTruoc = soTruoc / soSau;
+                break;
+            }
+        }
+
+        //---------Chọn số-----------//
+        function chonSo(){
+            if(phepT == undefined) {
+                if(soTruoc!=undefined) {
+                    soTruoc = Number(soTruoc+this.value);
+                    display = String(soTruoc);
+                }
+                else{
+                    soTruoc = Number(this.value);
+                    display = display+soTruoc;
+                }
+            }
+            else {
+                if(soSau==undefined) {
+                    soSau = Number(this.value); 
+                    display = display+soSau;
+                } else {
+                    soSau = Number(soSau+this.value); 
+                    display = display+this.value;
+                }
+            }
+            output.value = display;
+        }
+
+        //Tạo phép tính
+        function phepTinh(){
+            if(this.value != 'Xóa') {
+                if(soTruoc != undefined) {
+                    phepT = this.value;
+                    display = display+phepT;
+                    output.value = display;
+                } else if(this.value == '+' || this.value == '-'){
+                    soTruoc = this.value;
+                    display = soTruoc;
+                    output.value = display;
+                } else
+                    output.value = 'Nhập giá trị đầu tiên';
+            } else {
+                soTruoc = undefined;
+                soSau = undefined;
+                display = "";
+                output.value = 0;
+                
+            }
+        }
+
+        //Hiển thị kết quả
+        function ketQua() {
+            //--Sử dụng hàm tính mặc định của JS-----> screen.placeholder = eval(display);
+            if(soTruoc!=undefined){
+                tinhToan();
+                output.value = soTruoc;
+                display = soTruoc;
+                phepT = undefined;
+                soSau = undefined;
+                /*---->Bỏ thực hiện tính toán giữa kết quả cũ và số nhập tiếp theo<---------
+                soTruoc = undefined;
+                display = ""; */
+                
+            } else
+                output.value = 0;
+        }
+
+        //-------Gán sự kiện cho các button---------//
+        for(var i=0; i<buttonAction.length; i++)
+            buttonAction[i].onclick = phepTinh;
+        for(var i=0; i<buttonNumber.length; i++)
+            buttonNumber[i].onclick = chonSo;
+    </script>
+    <script>
+        //------------------Animation button------------------------//
+        window.onload = function() {
+            var mayTinh = document.getElementsByClassName('may-tinh')[0];  // Khung máy tính
+            var output = document.getElementsByClassName('output')[0]; // Ô hiển thị kết quả
+            var displayViewButton = document.getElementsByClassName('view-button')[0]; // Khung chứa button
+            var displayButtonNumber = document.getElementsByClassName('number'); // Các button number
+            var displayButtonAction = document.getElementsByClassName('action'); // Các button action
+
+            //---Hiển thị máy tính----//
+            mayTinh.style.marginTop = "50px";
+            mayTinh.style.transition = "1s";
+
+            //---Hiển thị ô kết quả----//
+            setTimeout(function(){
+                output.style.width = "80%";
+                output.style.transition = "1s";
+            },500);
+            
+            //---Hiển thị khung chứa button---//
+            setTimeout(function(){
+                displayViewButton.style.marginTop = "20px";
+                displayViewButton.style.transition = "1s";
+                var i=0;
+
+                //---Hiển thị các buttonNumber---//
+                var intervalButtonNumber = setInterval(function(){
+                        if(i<=displayButtonNumber.length) {
+                            displayButtonNumber[i].style.height = "50px";
+                            ++i;
+                            console.log("Number: "+i);
+                        } else {
+                            clearInterval(intervalButtonNumber);
+                        }
+                         
+                },80);
+            },500);
+            
+            //---Hiển thị các buttonAction---//
+           i=0;
+            setTimeout(function(){
+                var intervalButtonAction = setInterval(function(){
+                    if(i <= displayButtonAction.length) {
+                        displayButtonAction[i].style.height = "50px";
+                        ++i;
+                        console.log("Action: "+i);
+                    } else {
+                        clearInterval(intervalButtonAction);
+                    } 
+                },80);
+            },1300);
+
+            //---Hiển thị button Xóa---//
+            setTimeout(function(){
+                document.getElementsByClassName('ket-qua')[0].style.height = "50px";
+                document.getElementsByClassName('ket-qua')[0].style.transition = "1s";
+            },1700);
+        };
+    </script>
+</html>
