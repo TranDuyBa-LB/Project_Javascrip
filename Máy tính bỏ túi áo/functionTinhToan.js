@@ -56,9 +56,17 @@ function chonSo(){
 function phepTinh(){
     if(this.value != 'Xóa') {
         if(soTruoc != undefined) {
-            phepT = this.value;
-            display = display+phepT;
-            output.value = display;
+            if(soSau == undefined) {
+                phepT = this.value;
+                display = display+phepT;
+                output.value = display;
+              } else {
+                tinhToan();
+                soSau = undefined;
+                phepT = this.value;
+                display = display + this.value;
+                output.value = display;
+            }
         } else if(this.value == '+' || this.value == '-'){
             soTruoc = this.value;
             display = soTruoc;
